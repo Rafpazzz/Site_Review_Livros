@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros</title>
+    <link rel="stylesheet" href="{% static 'book/css/style_all_books.css' %}">
+</head>
+
+<body>
+
+    <h1>Lista de Livros</h1>
+    <div class="book-list" action="all_books" method="GET"> {% csrf_token %}
+        {% for book in books %}
+        <div class="book-item" id="book-id">
+            <h2>{{ book.titulo }}</h2>
+            <p><strong>Autor:</strong> {{ book.autor }}</p>
+            <p><strong>Editora:</strong> {{ book.editora }}</p>
+            <p><strong>Ano de Publicação:</strong> {{ book.ano_publicacao }}</p>
+            <p><strong>Resumo:</strong> {{ book.resumo }}</p>
+        </div>
+        {% empty %}
+        <p>Nenhum livro cadastrado.</p>
+        {% endfor %}
+    </div>
+
+    <div class="header-actions">
+        <a href="{% url 'add_book' %}" class="btn-voltar">Adicionar Livro</a>
+    </div>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Livro</title>
+    <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
+</head>
+
+<body>
+    <h1 id="Myh1">Adicione um livro</h1>
+
+    <div id="minhaDiv">
+        <form action="{% url 'add_book' %}" method="POST"> {% csrf_token %}
+            
+            <label for="titulo">Titulo: </label>
+            <input type="text" name="titulo" id="titulo" class="form-control" required>
+            <br><br>
+
+            <label for="autor">Autor: </label>
+            <input type="text" name="autor" id="autor" class="form-control" required>
+            <br><br>
+
+            <label for="editora">Editora: </label>
+            <input type="text" name="editora" id="editora" class="form-control">
+            <br><br>
+
+            <label for="ano_publicacao">Ano de Publicação: </label>
+            <input type="number" name="ano_publicacao" id="ano_publicacao" class="form-control">
+            <br><br>
+
+            <label for="resumo">Resumo: </label>
+            <br><br>
+            <textarea name="resumo" id="resumo" class="form-control" cols="50" rows="5"></textarea>
+
+            <br><br>
+            <input type="submit" value="Salvar Livro" class="btn_btn-primary">
+        </form>
+    </div>
+
+</body>
+
+<footer>
+</footer>
+
+</html>
