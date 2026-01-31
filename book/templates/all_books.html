@@ -1,34 +1,70 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros</title>
     <link rel="stylesheet" href="{% static 'book/css/style_all_books.css' %}">
+
+    <style>
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s;
+
+
+        }
+
+        .card-link:hover .book-item {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #f9f9f9;
+            border-color: #0083b0;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .book-item {
+            transition: all 0.3s ease;
+        }
+    </style>
+
 </head>
 
 <body>
 
     <h1>Lista de Livros</h1>
-    <div class="book-list" action="all_books" method="GET"> {% csrf_token %}
+
+    <div class="book-list">
         {% for book in books %}
-        <div class="book-item" id="book-id">
-            <h2>{{ book.titulo }}</h2>
-            <p><strong>Autor:</strong> {{ book.autor }}</p>
-            <p><strong>Editora:</strong> {{ book.editora }}</p>
-            <p><strong>Ano de Publicação:</strong> {{ book.ano_publicacao }}</p>
-            <p><strong>Resumo:</strong> {{ book.resumo }}</p>
-        </div>
+
+        <a href="{% url 'detalhes' book.id %}" class="card-link">
+
+            <div class="book-item" id="book-{{ book.id }}">
+                <h2>{{ book.titulo }}</h2>
+                <p><strong>Autor:</strong> {{ book.autor }}</p>
+                <p><strong>Editora:</strong> {{ book.editora }}</p>
+                <p><strong>Ano de Publicação:</strong> {{ book.ano_publicacao }}</p>
+
+                <p><strong>Resumo:</strong> {{ book.resumo|truncatewords:20 }}</p>
+            </div>
+
+        </a>
+
         {% empty %}
         <p>Nenhum livro cadastrado.</p>
         {% endfor %}
     </div>
+
     <br><br>
-        <div class="search-books-link">
-            <a href="{% url 'search_book' %}">Buscar Livro</a>
-        </div>
+
+    <div class="search-books-link">
+        <a href="{% url 'search_book' %}">Buscar Livro</a>
+    </div>
+
 </body>
 
 </html>

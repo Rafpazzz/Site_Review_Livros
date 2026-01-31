@@ -1,102 +1,100 @@
-/* 1. Fundo e Reset Básico */
 body {
-    background: linear-gradient(135deg, #00b4db, #0083b0); /* Mesmo degradê da outra página */
+    background: linear-gradient(135deg, #00b4db, #0083b0);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     margin: 0;
-    padding: 20px; /* Um pouco de espaço nas bordas */
+    padding: 20px;
 }
 
-/* 2. Título da Página */
 h1 {
     text-align: center;
     color: white;
     font-size: 2.5rem;
     margin-bottom: 40px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 3. O Container da Lista (A Mágica do Grid) */
 .book-list {
     display: grid;
-    /* Isso cria colunas automáticas. 
-       Cada cartão terá no mínimo 300px. Se couber mais, ele cria mais colunas. */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-    gap: 25px; /* Espaço entre os cartões */
-    max-width: 1200px; /* Largura máxima para não esticar demais em telas gigantes */
-    margin: 0 auto; /* Centraliza o grid na tela */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* 4. O Cartão do Livro Individual */
+/* Garante que o link envolvente ocupe toda a altura da célula do grid */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
 .book-item {
     background-color: white;
     border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra suave */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animação suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column; /* Garante que o conteúdo fique um abaixo do outro */
+    flex-direction: column;
+    /* Força o cartão a ocupar 100% da altura do link */
+    height: 100%; 
+    box-sizing: border-box;
 }
 
-/* Efeito ao passar o mouse em cima do livro */
 .book-item:hover {
-    transform: translateY(-5px); /* O cartão sobe um pouquinho */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3); /* A sombra aumenta */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* 5. Título do Livro dentro do cartão */
 .book-item h2 {
-    color: #0083b0; /* Azul escuro para destacar */
+    color: #0083b0;
     margin-top: 0;
     font-size: 1.5rem;
-    border-bottom: 2px solid #f0f0f0; /* Uma linha fina separando o título */
+    border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
 
-/* 6. Textos descritivos */
 .book-item p {
     color: #555;
-    line-height: 1.5; /* Altura da linha para facilitar leitura */
+    line-height: 1.5;
     margin: 8px 0;
     font-size: 0.95rem;
 }
 
 .book-item strong {
-    color: #333; /* Texto em negrito mais escuro */
+    color: #333;
 }
 
-/* Mensagem de "Nenhum livro" */
-.book-list > p {
+.book-list>p {
     color: white;
     text-align: center;
     font-size: 1.2rem;
-    grid-column: 1 / -1; /* Faz a mensagem ocupar a linha inteira se aparecer */
+    grid-column: 1 / -1;
 }
 
-/* Estilo do Botão de Link */
 .btn-voltar {
-    display: inline-block;        /* Permite dar tamanho e padding ao link */
-    background-color: white;      /* Fundo branco */
-    color: #0083b0;               /* Letra azul (combinando com o tema) */
-    padding: 10px 20px;           /* Espaço interno */
-    border-radius: 25px;          /* Bordas bem redondinhas */
-    text-decoration: none;        /* Remove o sublinhado feio do link */
-    font-weight: bold;            /* Letra mais grossa */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra leve */
-    transition: all 0.3s ease;    /* Animação suave */
-    border: 2px solid transparent; /* Prepara para a borda do hover */
+    display: inline-block;
+    background-color: white;
+    color: #0083b0;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
-/* Efeito ao passar o mouse */
 .btn-voltar:hover {
-    background-color: #0083b0;    /* Fica azul */
-    color: white;                 /* Letra fica branca */
-    border: 2px solid white;      /* Borda branca */
-    transform: scale(1.05);       /* Aumenta um pouquinho */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    background-color: #0083b0;
+    color: white;
+    border: 2px solid white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
 
 .search-books-link {
     margin-left: auto;
@@ -107,7 +105,7 @@ h1 {
     width: 100%;
 }
 
-.search-books-link > a {
+.search-books-link>a {
     display: block;
     text-align: center;
     background-color: white;
@@ -118,9 +116,8 @@ h1 {
     font-weight: bold;
     font-size: 0.9rem;
     transition: 0.2s;
-    
 }
 
-.search-books-link:hover > a {
+.search-books-link:hover>a {
     background-color: rgb(214, 214, 214);
 }

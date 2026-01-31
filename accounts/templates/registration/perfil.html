@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/perfil.css' %}">
+</head>
+<body>
+    
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Meu Perfil</h1>
+            <p><strong>Usuário:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <hr>
+
+        <div class="my-reviews">
+            <h2>Minhas Avaliações ({{ reviews.count }})</h2>
+
+            {% for review in reviews %}
+                <div class="review-card">
+                    <div class="review-header">
+                        <h3>📖 {{ review.book.titulo }}</h3>
+                        <span class="stars">{{ review.get_rating_display }}</span>
+                    </div>
+                    
+                    <div class="review-body">
+                        <p>{{ review.text }}</p> 
+                    </div>
+                    
+                    <div class="review-footer">
+                        <small>Avaliado em: {{ review.created_at|date:"d/m/Y" }}</small>
+                    </div>
+                </div>
+
+            {% empty %}
+                <div class="no-reviews">
+                    <p>Você ainda não fez nenhuma avaliação.</p>
+                    <a href="{% url 'search_book' %}" class="btn-buscar">Buscar livros para avaliar</a>
+                </div>
+            {% endfor %} </div>
+    </div>
+
+</body>
+</html>

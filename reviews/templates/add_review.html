@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliar Livro - {{ book.titulo }}</title>
+    <link rel="stylesheet" href="{% static 'review/css/add_review.css' %}">
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <div class="form-card">
+            <div class="card-header">
+                <h2>Escrever Avaliação</h2>
+                <p>Você está avaliando: <strong>{{ book.titulo }}</strong></p>
+                <small class="author-name">por {{ book.autor }}</small>
+            </div>
+
+            <form method="POST" class="review-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.rating.id_for_label }}">Quantas estrelas este livro merece?</label>
+                    <div class="select-wrapper">
+                        {{ form.rating }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.text.id_for_label }}">O que você achou?</label>
+                    {{ form.review_text }}
+                </div>
+
+                <div class="form-actions">
+                    <a href="javascript:history.back()" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-submit">Publicar Avaliação</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

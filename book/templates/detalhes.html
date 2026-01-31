@@ -1,45 +1,54 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ book.titulo }}</title>
-    <link rel="stylesheet" href="{% static 'book/css/search_style.css' %}"> 
     <link rel="stylesheet" href="{% static 'book/css/detalhes.css' %}">
 </head>
+
 <body>
 
-    <div class="detail-wrapper">
-        <div class="detail-card">
-            
-            <div class="header-detail">
-                <h1>{{ book.titulo }}</h1>
-                <h3>por {{ book.autor }}</h3>
+    <div class="detail-card">
+
+        <div class="header-detail">
+            <h1>{{ book.titulo }}</h1>
+            <div class="author">por {{ book.autor }}</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Editora</strong>
+                <span>{{ book.editora }}</span>
             </div>
-
-            <div class="info-grid">
-                <div class="info-item">
-                    <strong>Editora:</strong>
-                    <span>{{ book.editora }}</span>
-                </div>
-                <div class="info-item">
-                    <strong>Ano de Publicação:</strong>
-                    <span>{{ book.ano_publicacao }}</span>
-                </div>
-                </div>
-
-            <div class="resumo-section">
-                <h2>Sinopse</h2>
-                <div class="resumo-text">
-                    {{ book.resumo|linebreaks }}
-                </div>
+            <div class="info-item">
+                <strong>Ano</strong>
+                <span>{{ book.ano_publicacao }}</span>
             </div>
+        </div>
 
-            <a href="javascript:history.back()" class="btn-voltar">⬅ Voltar para a lista</a>
+        <div class="resumo-section">
+            <h2>Sinopse</h2>
+            <div class="resumo-text">
+                {{ book.resumo|linebreaks }}
+            </div>
+        </div>
+
+        <div class="card-actions">
+            <a href="{% url 'all_books' %}" class="btn-voltar">
+                ⬅ Voltar para a lista
+            </a>
+
+            <a href="{% url 'add_review' book.id %}" class="btn-avaliar">
+                ✍️ Escrever Avaliação
+            </a>
 
         </div>
+
     </div>
 
 </body>
+
 </html>

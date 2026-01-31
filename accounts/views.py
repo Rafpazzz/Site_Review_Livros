@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
 from .admin import CustomUserCreationForm
 from django.contrib import messages
+from reviews.models import Review
 
 # Create your views here.
 
@@ -36,3 +38,9 @@ def login(request):
 
 def password_reset_form(request):
     return render(request, 'registration/password_reset_form.html')
+
+@login_required
+def perfil(request):
+    user_reviews = Review.objects.filter(autor=request.user).order_by('-created_at')
+
+    return render(request, 'registration/perfil.html', {'reviews': user_reviews})

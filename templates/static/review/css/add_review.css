@@ -1,0 +1,127 @@
+/* Fundo Azul igual ao da Lista de Livros */
+body {
+    background-color: #00addc;
+    /* Azul Ciano */
+    background-image: linear-gradient(to right, #00addc, #0083b0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* O Cartão Branco Central */
+.form-card {
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Cabeçalho do Cartão */
+.card-header h2 {
+    color: #0083b0;
+    /* Azul escuro do tema */
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.card-header p {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.author-name {
+    color: #888;
+    display: block;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+/* Grupos do Formulário */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo dos Campos (Select e Textarea) */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    /* Garante que o padding não estoure a largura */
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #00addc;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Altura específica para a área de texto */
+textarea.form-control {
+    resize: vertical;
+    /* Permite o usuário esticar a caixa */
+    min-height: 120px;
+}
+
+/* Botões */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.btn-submit {
+    flex: 1;
+    background-color: #27ae60;
+    /* Verde igual ao botão de criar */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #219150;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    text-decoration: none;
+    color: #777;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: color 0.2s;
+}
+
+.btn-cancel:hover {
+    color: #d9534f;
+    /* Vermelho suave ao passar o mouse */
+}
