@@ -25,12 +25,10 @@
         <p>Nenhum livro cadastrado.</p>
         {% endfor %}
     </div>
-
-    <div class="header-actions">
-        <a href="{% url 'add_book' %}" class="btn-voltar">Adicionar Livro</a>
-    </div>
-    
-
+    <br><br>
+        <div class="search-books-link">
+            <a href="{% url 'search_book' %}">Buscar Livro</a>
+        </div>
 </body>
 
 </html>

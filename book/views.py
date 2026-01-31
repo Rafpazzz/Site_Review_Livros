@@ -1,23 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Books
 # Create your views here.
-
-def add_book(request):
-    if request.method == 'POST':
-        titulo = request.POST.get('titulo')
-        autor = request.POST.get('autor')
-        editora = request.POST.get('editora')
-        ano_publicacao = request.POST.get('ano_publicacao')
-        resumo = request.POST.get('resumo')
-
-        book = Books(titulo=titulo, autor=autor, editora=editora, ano_publicacao=ano_publicacao, resumo=resumo)
-        book.save()
-
-        return render(request, 'success.html')
-    
-    return render(request, 'add_book.html')
-
 
 def all_books(request):
     books = Books.objects.all()
     return render(request, 'all_books.html', {'books': books})
+
+
+def search_book(request):
+    query = request.GET.get('q')
+    if query:
+        books = Books.objects.filter(titulo__icontains=query)
+    else:
+        books = Books.objects.none()
+    return render(request, 'search_book.html', {'books': books, 'query': query})
+
+def detalhes(request, id):
+    book = get_object_or_404(Books, pk=id)
+    return render(request, 'detalhes.html', {'book': book})

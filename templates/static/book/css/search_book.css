@@ -1,0 +1,201 @@
+/* --- RESET BÁSICO --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 1. ESTILO DA BARRA DE PESQUISA --- */
+.search-section {
+    background: linear-gradient(135deg, #0083b0, #00b4db); /* Azul padrão */
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.search-section h1 {
+    margin: 0 0 20px 0;
+    font-size: 2.5rem;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.search-form button {
+    padding: 15px 30px;
+    font-size: 16px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #1a252f;
+}
+
+/* --- 2. TÍTULOS --- */
+.results-header {
+    margin-bottom: 20px;
+}
+.results-header h2 {
+    font-weight: normal;
+    color: #555;
+}
+.results-header span {
+    font-weight: bold;
+    color: #0083b0;
+}
+
+/* --- 3. A GRADE DE LIVROS (Responsiva) --- */
+.books-grid {
+    display: grid;
+    /* Isso faz a mágica: cria colunas automáticas de no mínimo 250px */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    padding-bottom: 50px;
+}
+
+/* --- 4. O CARD DO LIVRO --- */
+.book-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.book-cover {
+    height: 300px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image {
+    color: #999;
+    font-weight: bold;
+}
+
+.book-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Preenche o espaço restante */
+}
+
+.book-content h3 {
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+}
+
+.book-content .author {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.card-footer {
+    margin-top: auto; /* Empurra o botão para o fundo */
+}
+
+.btn-details {
+    display: block;
+    text-align: center;
+    background-color: #0083b0;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.btn-details:hover {
+    background-color: #006080;
+}
+
+/* --- Mensagem de "Não encontrado" --- */
+.no-results {
+    grid-column: 1 / -1; /* Faz a mensagem ocupar a largura toda */
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* --- Ajuste para Celular --- */
+@media (max-width: 600px) {
+    .search-form {
+        flex-direction: column;
+    }
+    .search-form button {
+        width: 100%;
+    }
+}
+
+.all-books-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.all-books-link > a {
+    display: block;
+    text-align: center;
+    background-color: #0083b0;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    
+}
+
+.all-books-link:hover > a {
+    background-color: #006080;
+}
