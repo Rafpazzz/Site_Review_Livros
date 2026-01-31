@@ -1,19 +1,63 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'users/css/register.css' %}">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/register.css' %}">
 </head>
+
 <body>
-    <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
-        <h2>Cadastro</h2>
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="number" name="age" placeholder="Age">
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Eviar</button>
-    </form>
-</body>
+    
+    <div class="container">
+        
+        <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
+            <h2>Cadastro</h2>
+
+            <label for="">Username: </label>
+            <input type="text" name="username" placeholder="Username" required>
+            <label for="">Email: </label>
+            <input type="email" name="email" placeholder="Email" required>
+            
+            {% if form.email.errors %}  
+            <div class="error-msg">
+                {% for error in form.email.errors %}
+                <p>⚠️ {{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <label for="">Password: </label>
+            <input type="password" name="password1" placeholder="Password" required>
+            
+            {% if form.password1.errors %}
+            <div class="error-msg">
+                {% for error in form.password1.errors %}
+                <p>⚠️ {{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <label for="">Confirm Password: </label>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            
+            {% if form.password2.errors %}
+            <div class="error-msg">
+                {% for error in form.password2.errors %}
+                <p>⚠️ {{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div class="login-area">
+            <p>Já tem uma conta?</p>
+            <a href="{% url 'login' %}"><button type="button">Fazer Login</button></a>
+        </div>
+
+    </div> </body>
 </html>

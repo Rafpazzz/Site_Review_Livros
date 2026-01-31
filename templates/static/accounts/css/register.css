@@ -1,0 +1,130 @@
+/* 1. Fundo da página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 2. O Cartão Branco (Agora é a classe .container) */
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px; /* Controla a largura total */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* O form agora ocupa 100% do espaço do container */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    text-align: center;
+    color: #0083b0;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+    margin-top: 10px; /* Dá espaço entre os campos automaticamente */
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #0083b0;
+    outline: none;
+}
+
+/* Botão Principal (Enviar) */
+button[type="submit"] {
+    background-color: #0083b0;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #006080;
+}
+
+/* Área de Login (Rodapé do cartão) */
+.login-area {
+    margin-top: 20px;
+    border-top: 1px solid #eee; /* Linha separadora */
+    padding-top: 20px;
+    text-align: center;
+}
+
+.login-area p {
+    margin: 0 0 10px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Botão Secundário (Login) */
+.login-area button {
+    background-color: white;
+    color: #0083b0;
+    border: 2px solid #0083b0;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.login-area button:hover {
+    background-color: #e6f7ff;
+}
+
+a {
+    text-decoration: none;
+    display: block; /* Garante que o link ocupe a largura */
+}
+
+/* Mensagens de Erro */
+.error-msg {
+    background-color: #ffe6e6;
+    border-left: 4px solid #cc0000;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+}
+
+.error-msg p {
+    color: #cc0000;
+    font-size: 13px;
+    margin: 0;
+    font-weight: bold;
+}

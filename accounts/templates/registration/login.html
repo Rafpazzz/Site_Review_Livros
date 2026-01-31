@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <h2>Bem-vindo de volta!</h2>
+
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            ⚠️ {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <label for="email">Usuário:</label>
+            <input type="text" id="username" name="username" placeholder="Seu email de usuário" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Sua senha" required>
+
+            <button type="submit" class="btn-login">Entrar</button>
+            
+            <div class="forgot-password">
+                <a href="{% url 'password_reset_form' %}">Esqueceu a senha?</a>
+            </div>
+        </form>
+
+        <div class="register-area">
+            <p>Não tem uma conta?</p>
+            <a href="{% url 'register' %}">
+                <button type="button" class="btn-register">Criar Conta</button>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
