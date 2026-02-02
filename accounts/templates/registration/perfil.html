@@ -10,6 +10,16 @@
 </head>
 <body>
     
+    {% if messages %}
+    <div style="position: fixed; top: 80px; right: 20px; z-index: 2000;">
+        {% for message in messages %}
+            <div style="background: white; color: #333; padding: 15px 25px; margin-bottom: 10px; border-radius: 8px; border-left: 6px solid #2ecc71; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: slideIn 0.5s ease-out;">
+                <i class="fas fa-check-circle" style="color: #2ecc71; margin-right: 8px;"></i> {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <nav class="navbar">
         <a href="{% url 'home' %}" class="navbar-brand">Review Livros</a>
 
@@ -22,6 +32,7 @@
             </form>
         </div>
     </nav>
+
     <div class="profile-container">
         <div class="profile-header">
             <div style="width: 60px; height: 60px; background: #0083b0; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin: 0 auto 10px auto; font-weight: bold; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">

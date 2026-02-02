@@ -1,33 +1,100 @@
 /* =========================================
-   CONFIGURAÇÕES GERAIS E FUNDO
+   1. MENU SUPERIOR (NOVO)
    ========================================= */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Gradiente idêntico ao das outras páginas para consistência */
-    background: linear-gradient(135deg, #00b4db, #0083b0);
-    margin: 0;
-    padding: 40px 20px;
-    min-height: 100vh;
+.navbar {
+    background-color: #0083b0; /* Cor sólida para leitura fácil */
+    padding: 15px 30px;
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alinha o card mais para o topo */
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.nav-item:hover {
+    opacity: 0.8;
+}
+
+.user-welcome {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    color: #e0f7fa;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.btn-logout:hover {
+    background-color: white;
+    color: #0083b0;
 }
 
 /* =========================================
-   CONTAINER PRINCIPAL (O Papel)
+   2. CONFIGURAÇÕES GERAIS E FUNDO
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    margin: 0;
+    /* Aumentei o padding-top para o conteúdo não ficar atrás do menu */
+    padding: 100px 20px 40px 20px; 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   3. CONTAINER PRINCIPAL (O Papel)
    ========================================= */
 .review-paper {
     background-color: white;
     width: 100%;
-    max-width: 700px; /* Largura ideal para leitura */
+    max-width: 700px;
     padding: 50px;
     border-radius: 12px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
     position: relative;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-/* Detalhe visual no topo do papel */
 .review-paper::before {
     content: '';
     position: absolute;
@@ -40,7 +107,7 @@ body {
 }
 
 /* =========================================
-   CABEÇALHO DO LIVRO
+   4. CABEÇALHO DO LIVRO
    ========================================= */
 .book-info-header {
     text-align: center;
@@ -76,7 +143,7 @@ body {
 }
 
 /* =========================================
-   META DADOS (Autor e Nota)
+   5. META DADOS (Autor e Nota)
    ========================================= */
 .reviewer-meta {
     display: flex;
@@ -85,7 +152,7 @@ body {
     margin-bottom: 30px;
     background-color: #f9fbfc;
     padding: 15px 20px;
-    border-radius: 50px; /* Borda redondinha estilo 'pill' */
+    border-radius: 50px;
 }
 
 .user-info {
@@ -94,7 +161,6 @@ body {
     gap: 15px;
 }
 
-/* Círculo com a inicial */
 .avatar-circle {
     width: 45px;
     height: 45px;
@@ -123,10 +189,9 @@ body {
     color: #999;
 }
 
-/* Badge da Nota */
 .rating-badge {
-    background-color: #fff8e1; /* Fundo amarelinho */
-    color: #f1c40f; /* Cor da estrela */
+    background-color: #fff8e1;
+    color: #f1c40f;
     padding: 8px 15px;
     border-radius: 20px;
     font-weight: bold;
@@ -138,10 +203,10 @@ body {
 }
 
 /* =========================================
-   TEXTO DA AVALIAÇÃO
+   6. TEXTO DA AVALIAÇÃO
    ========================================= */
 .review-content {
-    font-family: 'Georgia', serif; /* Fonte serifada para texto longo é mais elegante */
+    font-family: 'Georgia', serif;
     font-size: 1.15rem;
     line-height: 1.8;
     color: #444;
@@ -149,11 +214,12 @@ body {
 }
 
 /* =========================================
-   BOTÕES E INTERAÇÃO
+   7. BOTÕES E INTERAÇÃO
    ========================================= */
 .btn-back-floating {
     position: fixed;
-    top: 30px;
+    /* AJUSTE IMPORTANTE: */
+    top: 90px; /* Desci para 90px para ficar abaixo do menu */
     left: 30px;
     color: white;
     text-decoration: none;
@@ -185,6 +251,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     transition: opacity 0.2s;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .btn-edit {
@@ -201,10 +268,24 @@ body {
     opacity: 0.8;
 }
 
-/* Responsividade para celular */
+/* Responsividade */
 @media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        position: relative; /* No celular, deixa o menu rolar com a pagina */
+    }
+
+    body {
+        padding-top: 20px; /* Remove o padding extra no mobile se o menu não for fixo */
+        flex-direction: column;
+        align-items: center;
+    }
+
     .review-paper {
         padding: 25px;
+        max-width: 90%;
     }
     
     .reviewer-meta {
@@ -219,11 +300,12 @@ body {
     }
 
     .btn-back-floating {
-        position: static; /* No celular o botão fixo atrapalha, deixa no fluxo */
+        position: static;
         display: block;
         text-align: center;
-        margin-bottom: 20px;
+        margin: 20px auto;
         background: transparent;
         border: 1px solid white;
+        width: fit-content;
     }
 }

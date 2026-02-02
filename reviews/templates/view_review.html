@@ -10,6 +10,37 @@
 </head>
 <body>
 
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Review Livros</a>
+        
+        <div class="navbar-links">
+            <a href="{% url 'search_book' %}" class="nav-item">🔍 Buscar Livro</a>
+
+            {% if user.is_authenticated %}
+                <span class="user-welcome">Olá, {{ user.username }}</span>
+                
+                <a href="{% url 'perfil' %}" class="nav-item">Meu Perfil</a>
+                
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-item btn-logout">Sair</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-item">Entrar</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if messages %}
+        <div style="position: fixed; top: 80px; right: 20px; z-index: 1001;">
+            {% for message in messages %}
+                <div style="background: #fff; padding: 15px; border-radius: 5px; border-left: 5px solid {% if 'error' in message.tags %}#e74c3c{% elif 'warning' in message.tags %}#f39c12{% else %}#2ecc71{% endif %}; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin-bottom: 10px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <a href="{% url 'detalhes' review.book.id %}" class="btn-back-floating">
         <i class="fas fa-arrow-left"></i> Voltar para o Livro
     </a>
@@ -49,8 +80,12 @@
 
             {% if request.user == review.autor %}
             <div class="action-buttons">
-                <button class="btn btn-edit">Editar Avaliação</button>
-                <button class="btn btn-delete">Excluir</button>
+                <a href="{% url 'editar_review' review.id %}" class="btn btn-edit" style="text-decoration: none; display: inline-block;">Editar Avaliação</a>
+                
+                <form action="{% url 'delete_review' review.id %}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta avaliação?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-delete">Excluir</button>
+                </form>
             </div>
             {% endif %}
 
