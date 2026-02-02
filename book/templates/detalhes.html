@@ -7,9 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ book.titulo }}</title>
     <link rel="stylesheet" href="{% static 'book/css/detalhes.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Review Livros</a>
+        
+        <div class="navbar-links">
+            <a href="{% url 'search_book' %}" class="nav-item">🔍 Buscar Livro</a>
+
+            {% if user.is_authenticated %}
+                <span class="user-welcome">Olá, {{ user.username }}</span>
+                
+                <a href="{% url 'perfil' %}" class="nav-item">Meu Perfil</a>
+                
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-item btn-logout">Sair</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-item">Entrar</a>
+                <a href="{% url 'register' %}" class="nav-item">Cadastrar</a>
+            {% endif %}
+        </div>
+    </nav>
 
     <div class="detail-card">
 
@@ -37,18 +60,16 @@
         </div>
 
         <div class="card-actions">
-            <a href="{% url 'all_books' %}" class="btn-voltar">
-                ⬅ Voltar para a lista
+            <a href="{% url 'search_book' %}" class="btn-voltar">
+                <i class="fas fa-arrow-left"></i> Voltar para a busca
             </a>
 
             <a href="{% url 'add_review' book.id %}" class="btn-avaliar">
-                ✍️ Escrever Avaliação
+                <i class="fas fa-star"></i> Escrever Avaliação
             </a>
-
         </div>
 
     </div>
 
 </body>
-
 </html>

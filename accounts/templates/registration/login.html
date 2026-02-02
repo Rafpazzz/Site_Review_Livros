@@ -1,27 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
 </head>
-<body>
 
+<body>
+    
     <div class="container">
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <h2>Bem-vindo de volta!</h2>
 
             {% if messages %}
-                <div class="messages-container">
-                    {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            ⚠️ {{ message }}
-                        </div>
-                    {% endfor %}
+            <div class="messages-container">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    ⚠️ {{ message }}
                 </div>
+                {% endfor %}
+            </div>
             {% endif %}
 
             <label for="email">Usuário:</label>
@@ -31,7 +33,7 @@
             <input type="password" id="password" name="password" placeholder="Sua senha" required>
 
             <button type="submit" class="btn-login">Entrar</button>
-            
+
             <div class="forgot-password">
                 <a href="{% url 'password_reset_form' %}">Esqueceu a senha?</a>
             </div>
@@ -46,4 +48,5 @@
     </div>
 
 </body>
+
 </html>

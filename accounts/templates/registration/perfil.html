@@ -6,11 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil</title>
     <link rel="stylesheet" href="{% static 'accounts/css/perfil.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Review Livros</a>
+
+        <div class="navbar-links">
+            <a href="{% url 'search_book' %}" class="nav-item">🔍 Buscar Livro</a>
+            
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-item btn-logout">Sair</button>
+            </form>
+        </div>
+    </nav>
     <div class="profile-container">
         <div class="profile-header">
+            <div style="width: 60px; height: 60px; background: #0083b0; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin: 0 auto 10px auto; font-weight: bold; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                {{ user.username|slice:":1"|upper }}
+            </div>
+
             <h1>Meu Perfil</h1>
             <p><strong>Usuário:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
@@ -24,25 +41,35 @@
             {% for review in reviews %}
                 <div class="review-card">
                     <div class="review-header">
-                        <h3>📖 {{ review.book.titulo }}</h3>
-                        <span class="stars">{{ review.get_rating_display }}</span>
+                        <h3>
+                            <a href="{% url 'view_review' review.id %}" class="link-titulo">
+                                📖 {{ review.book.titulo }}
+                            </a>
+                        </h3>
+                        <span class="stars">{{ review.rating }}/5 ⭐</span>
                     </div>
                     
                     <div class="review-body">
-                        <p>{{ review.text }}</p> 
+                        <p>{{ review.review_text|truncatechars:100 }}</p> 
                     </div>
                     
                     <div class="review-footer">
-                        <small>Avaliado em: {{ review.created_at|date:"d/m/Y" }}</small>
+                        <small>Data: {{ review.created_at|date:"d/m/Y" }}</small>
+                        
+                        <a href="{% url 'view_review' review.id %}" class="btn-ver-review">
+                            Ver completa →
+                        </a>
                     </div>
                 </div>
 
             {% empty %}
-                <div class="no-reviews">
+                <div class="no-reviews" style="text-align: center; padding: 20px;">
                     <p>Você ainda não fez nenhuma avaliação.</p>
+                    <br>
                     <a href="{% url 'search_book' %}" class="btn-buscar">Buscar livros para avaliar</a>
                 </div>
-            {% endfor %} </div>
+            {% endfor %} 
+        </div>
     </div>
 
 </body>

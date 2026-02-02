@@ -1,82 +1,265 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+/* =========================================
+   1. MENU SUPERIOR (NAVBAR PADRÃO)
+   ========================================= */
+.navbar {
+    background-color: #006d94; /* Azul escuro sólido */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Fixa no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
 }
 
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    opacity: 0.8;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: white;
+    color: #0083b0;
+}
+
+/* =========================================
+   2. ESTILOS GERAIS E FUNDO
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #00b4db, #0083b0); 
+    color: #333;
+    margin: 0;
+    /* IMPORTANTE: 100px de padding no topo para compensar o menu fixo */
+    padding: 100px 20px 40px 20px; 
+    min-height: 100vh;
+}
+
+/* =========================================
+   3. CONTAINER DO PERFIL
+   ========================================= */
 .profile-container {
     max-width: 800px;
     margin: 0 auto;
     background: white;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden; 
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Faixa colorida decorativa no topo */
+.profile-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #00b4db, #0083b0);
+}
+
+/* Cabeçalho com as informações */
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+}
+
+.profile-header h1 {
+    margin: 10px 0 5px 0;
+    color: #2c3e50;
+    font-size: 2rem;
 }
 
 .profile-header p {
     font-size: 1.1rem;
-    margin: 10px 0;
+    color: #666;
+    margin: 5px 0;
 }
 
+/* Títulos das seções */
 h2 {
     color: #0083b0;
     margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-left: 5px solid #0083b0;
+    padding-left: 15px;
 }
 
-/* CARD DA REVIEW */
+/* =========================================
+   4. CARD DA REVIEW (Avaliações)
+   ========================================= */
 .review-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
     background-color: #fff;
-    transition: transform 0.2s;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .review-card:hover {
     border-color: #0083b0;
-    transform: translateX(5px);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
 .review-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    align-items: flex-start; 
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .review-header h3 {
     margin: 0;
-    font-size: 1.2rem;
-    color: #2c3e50;
+    font-size: 1.3rem;
+    color: #34495e;
+    font-weight: 700;
 }
 
 .stars {
-    color: #f1c40f; /* Cor amarela para estrelas */
-    font-weight: bold;
+    color: #f1c40f;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .review-body p {
-    line-height: 1.6;
-    color: #555;
+    font-family: 'Georgia', serif; 
+    line-height: 1.7;
+    color: #444;
+    font-size: 1.05rem;
+    font-style: italic; 
 }
 
+/* Rodapé do card */
 .review-footer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
     margin-top: 15px;
     font-size: 0.85rem;
     color: #999;
-    text-align: right;
 }
 
+/* =========================================
+   5. BOTÕES E LINKS INTERNOS
+   ========================================= */
 .btn-buscar {
     display: inline-block;
-    margin-top: 10px;
-    color: #0083b0;
+    background-color: #0083b0;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px; 
     text-decoration: none;
     font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+.btn-buscar:hover {
+    background-color: #005f80;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    color: white;
+}
+
+.link-titulo {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.link-titulo:hover {
+    color: #0083b0;
+}
+
+.btn-ver-review {
+    text-decoration: none;
+    color: #0083b0;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid #0083b0;
+    padding: 5px 12px;
+    border-radius: 15px;
+    transition: all 0.2s;
+}
+
+.btn-ver-review:hover {
+    background-color: #0083b0;
+    color: white;
+}
+
+.no-reviews {
+    text-align: center; 
+    padding: 20px;
+}
+
+/* Responsividade do Menu */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    body {
+        padding-top: 130px; /* Mais espaço no topo se o menu quebrar linha */
+    }
+}

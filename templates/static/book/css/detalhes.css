@@ -1,29 +1,102 @@
+/* =========================================
+   1. ESTILOS DO MENU SUPERIOR (NAVBAR)
+   ========================================= */
+.navbar {
+    background-color: #0083b0; /* Mesma cor do seu gradiente final */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Fixa no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000; /* Garante que fica acima de tudo */
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-item:hover {
+    opacity: 0.8;
+}
+
+.user-welcome {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    color: #e0f7fa;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.btn-logout:hover {
+    background-color: white;
+    color: #0083b0;
+}
+
+/* =========================================
+   2. CONFIGURAÇÕES GERAIS (BODY)
+   ========================================= */
 body {
     background: linear-gradient(135deg, #00b4db, #0083b0);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     margin: 0;
-    padding: 40px 20px;
-    /* Espaço nas laterais */
+    
+    /* AJUSTE CRÍTICO PARA O MENU: */
+    /* 110px no topo (para o menu não cobrir) e 20px nos lados */
+    padding: 110px 20px 40px 20px; 
+    
     display: flex;
     justify-content: center;
-    align-items: center;
-    /* Centraliza verticalmente */
+    align-items: flex-start; /* Mudei para flex-start para evitar cortes em telas pequenas */
 }
 
+/* =========================================
+   3. CARD DE DETALHES (Seu Estilo)
+   ========================================= */
 .detail-card {
     background: white;
     width: 100%;
     max-width: 850px;
     border-radius: 20px;
-    /* Bordas bem arredondadas */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    /* Sombra elegante */
     padding: 50px;
     box-sizing: border-box;
     position: relative;
     animation: fadeIn 0.6s ease-out;
-    /* Animação de entrada */
 }
 
 @keyframes fadeIn {
@@ -31,7 +104,6 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -40,7 +112,6 @@ body {
 
 .header-detail {
     text-align: center;
-    /* Centralizado fica mais moderno para capas */
     margin-bottom: 40px;
     border-bottom: 1px solid #eee;
     padding-bottom: 30px;
@@ -50,13 +121,11 @@ body {
     color: #2c3e50;
     margin: 0;
     font-size: 3rem;
-    /* Título bem grande */
     letter-spacing: -1px;
 }
 
 .header-detail .author {
     color: #0083b0;
-    /* Azul destaque */
     margin-top: 10px;
     font-size: 1.4rem;
     font-weight: 500;
@@ -65,9 +134,7 @@ body {
 .info-grid {
     display: flex;
     justify-content: center;
-    /* Centraliza os itens */
     gap: 60px;
-    /* Espaço entre eles */
     margin-bottom: 40px;
 }
 
@@ -81,7 +148,6 @@ body {
     font-size: 0.8rem;
     letter-spacing: 1px;
     color: #95a5a6;
-    /* Cinza claro para o rótulo */
     margin-bottom: 5px;
 }
 
@@ -93,11 +159,9 @@ body {
 
 .resumo-section {
     background-color: #f9fbfd;
-    /* Fundo muito levemente azulado */
     padding: 30px;
     border-radius: 12px;
     border-left: 5px solid #0083b0;
-    /* Detalhe lateral azul */
     margin-bottom: 40px;
 }
 
@@ -113,16 +177,20 @@ body {
 .resumo-text {
     font-size: 1.1rem;
     line-height: 1.8;
-    /* Bom espaçamento para leitura */
     color: #555;
     text-align: justify;
 }
 
+/* =========================================
+   4. BOTÕES E AÇÕES (RESTAURADOS)
+   ========================================= */
 .card-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
 }
 
 .btn-voltar {
@@ -140,52 +208,46 @@ body {
     color: #2c3e50;
 }
 
-
-/* ... seus estilos anteriores ... */
-
 /* Estilo do Botão de Avaliar */
 .btn-avaliar {
-    background-color: #27ae60; /* Verde Esmeralda (chama atenção positivamente) */
+    background-color: #27ae60;
     color: white;
     padding: 12px 28px;
-    border-radius: 30px; /* Bordas bem redondas (pílula) */
+    border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
     font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4); /* Sombra verde suave */
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px; /* Espaço entre o ícone e o texto */
+    gap: 8px;
 }
 
-/* Efeito Hover (passar o mouse) */
 .btn-avaliar:hover {
-    background-color: #219150; /* Verde mais escuro */
-    transform: translateY(-3px); /* Sobe um pouquinho */
-    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.6); /* Sombra aumenta */
+    background-color: #219150;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.6);
 }
 
-/* Ajuste no container de botões para separar bem um do outro */
-.card-actions {
-    display: flex;
-    justify-content: space-between; /* Um em cada ponta */
-    align-items: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #eee; /* Uma linha suave separando o conteúdo dos botões */
-}
-
-/* Responsividade: No celular, os botões ficam um embaixo do outro */
+/* Responsividade */
 @media (max-width: 600px) {
     .card-actions {
-        flex-direction: column-reverse; /* Avaliar em cima, Voltar embaixo */
+        flex-direction: column-reverse;
         gap: 15px;
     }
     
     .btn-avaliar, .btn-voltar {
-        width: 100%; /* Botões ocupam a largura toda */
+        width: 100%;
         text-align: center;
         justify-content: center;
+    }
+    
+    .info-grid {
+        gap: 30px;
+    }
+    
+    .header-detail h1 {
+        font-size: 2rem;
     }
 }

@@ -149,3 +149,26 @@ input:focus {
     color: #006644;
     border-left: 4px solid #006644;
 }
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Estilo para Warning (Aviso) - Amarelo/Laranja */
+.alert.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+/* Se usar messages.error, use este estilo vermelho */
+.alert.error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}

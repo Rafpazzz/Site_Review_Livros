@@ -7,37 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros</title>
     <link rel="stylesheet" href="{% static 'book/css/style_all_books.css' %}">
-
-    <style>
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            transition: transform 0.2s;
-
-
-        }
-
-        .card-link:hover .book-item {
-            transform: scale(1.02);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            background-color: #f9f9f9;
-            border-color: #0083b0;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .book-item {
-            transition: all 0.3s ease;
-        }
-    </style>
-
 </head>
 
 <body>
 
-    <h1>Lista de Livros</h1>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Review Livros</a>
 
+        <div class="navbar-links">
+            <a href="{% url 'search_book' %}" class="nav-item">🔍 Buscar Livro</a>
+
+            {% if user.is_authenticated %}
+                <span class="user-welcome">Olá, {{ user.username }}</span>
+                
+                <a href="{% url 'perfil' %}" class="nav-item">Meu Perfil</a>
+                
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-item btn-logout" style="border:none; cursor:pointer;">Sair</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-item">Entrar</a>
+                <a href="#" class="nav-item">Cadastrar</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <h1>Lista de Livros</h1>
+    
     <div class="book-list">
         {% for book in books %}
 
@@ -55,16 +52,15 @@
         </a>
 
         {% empty %}
-        <p>Nenhum livro cadastrado.</p>
+        <p style="text-align: center;">Nenhum livro cadastrado.</p>
         {% endfor %}
     </div>
-
-    <br><br>
-
+    
     <div class="search-books-link">
-        <a href="{% url 'search_book' %}">Buscar Livro</a>
+        <a href="{% url 'search_book' %}">
+            🔍 Ir para a Página de Busca
+        </a>
     </div>
-
 </body>
 
 </html>

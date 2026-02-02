@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação: {{ review.book.titulo }}</title>
+    <link rel="stylesheet" href="{% static 'review/css/view_review.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <a href="{% url 'detalhes' review.book.id %}" class="btn-back-floating">
+        <i class="fas fa-arrow-left"></i> Voltar para o Livro
+    </a>
+
+    <div class="main-container">
+        
+        <div class="review-paper">
+            
+            <div class="book-info-header">
+                <span class="label">Livro Avaliado</span>
+                <h1>{{ review.book.titulo }}</h1>
+                <h2>{{ review.book.autor }}</h2>
+            </div>
+
+            <hr class="divider">
+
+            <div class="reviewer-meta">
+                <div class="user-info">
+                    <div class="avatar-circle">
+                        {{ review.autor.username|slice:":1"|upper }}
+                    </div>
+                    <div class="text-info">
+                        <p class="username">Por: <strong>{{ review.autor.username }}</strong></p>
+                        <p class="date">Em: {{ review.created_at|date:"d/m/Y \à\s H:i" }}</p>
+                    </div>
+                </div>
+
+                <div class="rating-badge">
+                    <i class="fas fa-star"></i> 
+                    <span>{{ review.rating }}/5</span>
+                </div>
+            </div>
+
+            <div class="review-content">
+                <p>{{ review.review_text|linebreaks }}</p>
+            </div>
+
+            {% if request.user == review.autor %}
+            <div class="action-buttons">
+                <button class="btn btn-edit">Editar Avaliação</button>
+                <button class="btn btn-delete">Excluir</button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,18 +1,101 @@
-/* Fundo Azul igual ao da Lista de Livros */
-body {
-    background-color: #00addc;
-    /* Azul Ciano */
-    background-image: linear-gradient(to right, #00addc, #0083b0);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* =========================================
+   1. MENU SUPERIOR (NAVBAR)
+   ========================================= */
+.navbar {
+    background-color: #0083b0; /* Azul do tema */
+    padding: 15px 30px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
+    position: fixed; /* Fixa no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
 }
 
-/* O Cartão Branco Central */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-item:hover {
+    opacity: 0.8;
+}
+
+.user-welcome {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    color: #e0f7fa;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.btn-logout:hover {
+    background-color: white;
+    color: #0083b0;
+}
+
+/* =========================================
+   2. CONFIGURAÇÕES GERAIS E FUNDO
+   ========================================= */
+body {
+    background-color: #00addc;
+    background-image: linear-gradient(to right, #00addc, #0083b0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    display: flex;
+    justify-content: center;
+    /* align-items: center;  <-- REMOVIDO para evitar conflito com menu */
+    align-items: flex-start; /* Começa do topo */
+    
+    min-height: 100vh;
+    margin: 0;
+    
+    /* Padding topo de 120px para compensar o menu fixo + respiro visual */
+    padding: 120px 20px 40px 20px; 
+    box-sizing: border-box;
+}
+
+.main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* =========================================
+   3. CARTÃO DO FORMULÁRIO
+   ========================================= */
 .form-card {
     background-color: white;
     width: 100%;
@@ -21,12 +104,18 @@ body {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
+    /* Animação suave de entrada */
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Cabeçalho do Cartão */
 .card-header h2 {
     color: #0083b0;
-    /* Azul escuro do tema */
     margin-bottom: 10px;
     font-size: 2rem;
 }
@@ -58,8 +147,12 @@ body {
     color: #333;
 }
 
-/* Estilo dos Campos (Select e Textarea) */
-.form-control {
+/* Estilo dos Campos (Geral) */
+.form-control, 
+input[type="text"],
+input[type="number"],
+select, 
+textarea {
     width: 100%;
     padding: 12px;
     border: 2px solid #e0e0e0;
@@ -68,24 +161,27 @@ body {
     font-family: inherit;
     background-color: #f9f9f9;
     box-sizing: border-box;
-    /* Garante que o padding não estoure a largura */
     transition: border-color 0.3s;
 }
 
-.form-control:focus {
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
     border-color: #00addc;
     outline: none;
     background-color: #fff;
 }
 
 /* Altura específica para a área de texto */
-textarea.form-control {
+textarea {
     resize: vertical;
-    /* Permite o usuário esticar a caixa */
     min-height: 120px;
 }
 
-/* Botões */
+/* =========================================
+   4. BOTÕES DE AÇÃO
+   ========================================= */
 .form-actions {
     display: flex;
     justify-content: space-between;
@@ -96,8 +192,7 @@ textarea.form-control {
 
 .btn-submit {
     flex: 1;
-    background-color: #27ae60;
-    /* Verde igual ao botão de criar */
+    background-color: #27ae60; /* Verde */
     color: white;
     border: none;
     padding: 12px;
@@ -122,6 +217,18 @@ textarea.form-control {
 }
 
 .btn-cancel:hover {
-    color: #d9534f;
-    /* Vermelho suave ao passar o mouse */
+    color: #d9534f; /* Vermelho */
+}
+
+/* Responsividade do Menu */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    body {
+        /* Aumenta o espaço no topo se o menu quebrar em duas linhas */
+        padding-top: 150px; 
+    }
 }
