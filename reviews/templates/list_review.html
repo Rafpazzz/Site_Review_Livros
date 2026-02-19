@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Avaliações</title>
+    <link rel="stylesheet" href="{% static 'review/css/list_review.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>📋 Avaliações Recentes</h1>
+        <p>Veja o que os usuários estão dizendo</p>
+    </header>
+
+    <main class="container">
+        {% if page_obj %}
+            <ul class="review-list">
+                {% for review in page_obj %}
+                <li class="review-item">
+                    <h2>{{ review.title }}</h2>
+                    <p class="author">por <strong>{{ review.user.username }}</strong> em {{ review.created_at|date:"d/m/Y H:i" }}</p>
+                    <p class="content">{{ review.content|truncatewords:40 }}</p>
+                </li>
+                {% empty %}
+                <p class="no-reviews">Nenhuma avaliação encontrada.</p>
+                {% endfor %}
+            </ul>
+
+            <!-- Paginação -->
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn">← Anterior</a>
+                {% endif %}
+
+                <span class="page-number">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn">Próxima →</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </main>
+
+    <footer class="footer">
+        <p>© {{ now|date:"Y" }} - Sistema de Avaliações</p>
+    </footer>
+</body>
+</html>

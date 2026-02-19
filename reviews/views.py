@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.core.paginator import Paginator
 from book.models import Books
 from .forms import ReviewForm
 from .models import Review
@@ -82,3 +83,15 @@ def editar_review(request, review_id):
         'book': review.book 
     })
     
+def list_review(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Voce precisa esta logado para fazer essa ação")
+        return redirect('login')
+    
+    review_list = Review.objects.all().order_by('id')
+    paginator = Paginator(review_list, 5)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'list_review.html', {'page_obj' : page_obj})

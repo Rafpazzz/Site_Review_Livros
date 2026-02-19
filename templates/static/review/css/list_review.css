@@ -1,0 +1,99 @@
+/* Layout geral */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f5f6fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Cabeçalho */
+.header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #6c63ff, #5a4ef1);
+    color: white;
+}
+
+.header h1 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+/* Container principal */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Lista de avaliações */
+.review-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-item {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.review-item h2 {
+    color: #4e4cbf;
+    margin-bottom: 8px;
+}
+
+.review-item .author {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 12px;
+}
+
+.review-item .content {
+    line-height: 1.6;
+}
+
+/* Paginação */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.pagination .btn {
+    background-color: #6c63ff;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: 0.2s ease;
+}
+
+.pagination .btn:hover {
+    background-color: #5a4ef1;
+}
+
+.pagination .page-number {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #eee;
+    color: #666;
+    font-size: 0.9rem;
+}
