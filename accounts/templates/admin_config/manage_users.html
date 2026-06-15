@@ -14,7 +14,7 @@
         <div class="admin-navlinks">
             <a href="{% url 'admin_config_home' %}">Painel</a>
             <a href="{% url 'admin_books' %}">Livros</a>
-            <a href="{% url 'admin_users' %}">Usuarios</a>
+            <a href="{% url 'admin_lab' %}">Objetos Laboratorio</a>
             <a href="{% url 'home' %}">Site</a>
         </div>
 
@@ -43,6 +43,10 @@
         <section class="action-menu" aria-label="Menu de acoes de usuarios">
             <a href="{% url 'admin_users' %}" class="{% if action == 'list' %}active{% endif %}">Listar</a>
             <a href="{% url 'admin_users' %}?action=create" class="{% if action == 'create' %}active{% endif %}">Adicionar</a>
+            <div class="action-menu-export">
+                <a href="{% url 'admin_users_export_csv' %}" class="export-csv">CSV</a>
+                <a href="{% url 'admin_users_export_pdf' %}" class="export-pdf">PDF</a>
+            </div>
         </section>
 
         {% if action == 'create' or action == 'edit' %}

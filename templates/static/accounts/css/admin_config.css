@@ -179,6 +179,28 @@ h2 {
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
 }
 
+.action-menu-export {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.action-menu-export a {
+    min-width: 68px;
+    padding-inline: 14px;
+    background: #ffffff;
+}
+
+.action-menu .export-csv {
+    border-color: #15803d;
+    color: #15803d;
+}
+
+.action-menu .export-pdf {
+    border-color: #b91c1c;
+    color: #b91c1c;
+}
+
 .admin-form {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

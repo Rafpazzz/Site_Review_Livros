@@ -1,9 +1,18 @@
+import csv
+import io
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login as auth_login
+from django.http import HttpResponse
 from django.utils.http import url_has_allowed_host_and_scheme
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 from .forms import AdminBookForm, AdminUserCreateForm, AdminUserUpdateForm, RegisterUserForm
+from .models import UserProfile
 from django.contrib import messages
 from book.models import Books
 from reviews.models import Review
@@ -72,6 +81,57 @@ def perfil(request):
 
 def is_system_admin(user):
     return user.is_authenticated and user.is_staff
+
+
+def _build_admin_pdf(title, headers, rows, col_widths):
+    buffer = io.BytesIO()
+    document = SimpleDocTemplate(
+        buffer,
+        pagesize=landscape(A4),
+        pageCompression=0,
+        rightMargin=24,
+        leftMargin=24,
+        topMargin=24,
+        bottomMargin=24,
+        title=title,
+    )
+    styles = getSampleStyleSheet()
+    normal_style = styles['BodyText']
+    table_data = [headers]
+
+    for row in rows:
+        table_data.append([
+            Paragraph(str(value or '-'), normal_style)
+            for value in row
+        ])
+
+    table = Table(table_data, repeatRows=1, colWidths=col_widths)
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#12395b')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, -1), 9),
+        ('GRID', (0, 0), (-1, -1), 0.25, colors.HexColor('#cbd5e1')),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f8fafc')]),
+        ('LEFTPADDING', (0, 0), (-1, -1), 6),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+        ('TOPPADDING', (0, 0), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+    ]))
+    document.build([
+        Paragraph(title, styles['Title']),
+        Spacer(1, 12),
+        table,
+    ])
+    return buffer.getvalue()
+
+
+def _user_profile(user):
+    try:
+        return user.profile
+    except UserProfile.DoesNotExist:
+        return None
 
 
 @user_passes_test(is_system_admin, login_url='login')
@@ -194,6 +254,65 @@ def manage_users(request):
         'form': form,
         'selected_user': selected_user,
     })
+
+
+@user_passes_test(is_system_admin, login_url='login')
+def export_users_csv(request):
+    User = get_user_model()
+    users = User.objects.select_related('profile').all().order_by('username')
+
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="usuarios.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['id', 'usuario', 'email', 'nome', 'sobrenome', 'matricula', 'sexo', 'staff', 'ativo'])
+
+    for user in users:
+        profile = _user_profile(user)
+        writer.writerow([
+            user.id,
+            user.username,
+            user.email,
+            user.first_name,
+            user.last_name,
+            profile.matricula if profile else '',
+            profile.get_sexo_display() if profile else '',
+            'Sim' if user.is_staff else 'Nao',
+            'Sim' if user.is_active else 'Nao',
+        ])
+
+    return response
+
+
+@user_passes_test(is_system_admin, login_url='login')
+def export_users_pdf(request):
+    User = get_user_model()
+    users = User.objects.select_related('profile').all().order_by('username')
+    rows = []
+
+    for user in users:
+        profile = _user_profile(user)
+        rows.append([
+            user.id,
+            user.username,
+            user.email,
+            profile.matricula if profile else '',
+            profile.get_sexo_display() if profile else '',
+            'Sim' if user.is_staff else 'Nao',
+            'Sim' if user.is_active else 'Nao',
+        ])
+
+    response = HttpResponse(
+        _build_admin_pdf(
+            'Usuarios',
+            ['ID', 'Usuario', 'Email', 'Matricula', 'Sexo', 'Staff', 'Ativo'],
+            rows,
+            [42, 130, 190, 120, 100, 70, 70],
+        ),
+        content_type='application/pdf',
+    )
+    response['Content-Disposition'] = 'attachment; filename="usuarios.pdf"'
+    return response
 
 
 @user_passes_test(is_system_admin, login_url='login')
