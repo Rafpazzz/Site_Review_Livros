@@ -11,4 +11,5 @@ urlpatterns = [
     path('configuracao/', views.system_config_home, name='admin_config_home'),
     path('configuracao/livros/', views.manage_books, name='admin_books'),
     path('configuracao/usuarios/', views.manage_users, name='admin_users'),
+    path('configuracao/laboratorio/', views.manage_lab, name='admin_lab'),
 ]

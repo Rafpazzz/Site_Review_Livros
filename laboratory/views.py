@@ -11,7 +11,7 @@ from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
-from accounts.views import is_system_admin
+from accounts.views import is_system_admin, manage_lab
 
 from .forms import ObjetoLaboratorioForm
 from .models import ObjetoLaboratorio
@@ -116,9 +116,7 @@ def _build_lab_objects_pdf(objects):
 
 @user_passes_test(is_system_admin, login_url='login')
 def manage_lab_objects(request):
-    return render(request, 'admin_config/manage_lab_objects.html', {
-        'condicao_choices': ObjetoLaboratorio.Condicao.choices,
-    })
+    return manage_lab(request)
 
 
 @user_passes_test(is_system_admin, login_url='login')

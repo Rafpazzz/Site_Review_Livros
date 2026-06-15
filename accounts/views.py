@@ -7,6 +7,7 @@ from .forms import AdminBookForm, AdminUserCreateForm, AdminUserUpdateForm, Regi
 from django.contrib import messages
 from book.models import Books
 from reviews.models import Review
+from laboratory.forms import ObjetoLaboratorioForm
 from laboratory.models import ObjetoLaboratorio
 
 # Create your views here.
@@ -192,4 +193,59 @@ def manage_users(request):
         'users': User.objects.select_related('profile').all().order_by('username'),
         'form': form,
         'selected_user': selected_user,
+    })
+
+
+@user_passes_test(is_system_admin, login_url='login')
+def manage_lab(request):
+    action = request.GET.get('action', 'list')
+    selected_object = None
+    form = ObjetoLaboratorioForm()
+
+    if action in ('edit', 'delete'):
+        selected_object = ObjetoLaboratorio.objects.filter(pk=request.GET.get('object')).first()
+        if selected_object is None:
+            messages.warning(request, 'Selecione um objeto valido para continuar.')
+            return redirect('admin_lab')
+
+    if action == 'edit':
+        form = ObjetoLaboratorioForm(instance=selected_object)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        object_id = request.POST.get('object_id')
+
+        if action == 'create':
+            form = ObjetoLaboratorioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Objeto adicionado com sucesso.')
+                return redirect('admin_lab')
+
+        elif action == 'edit':
+            selected_object = ObjetoLaboratorio.objects.filter(pk=object_id).first()
+            if selected_object is None:
+                messages.warning(request, 'Objeto nao encontrado.')
+                return redirect('admin_lab')
+
+            form = ObjetoLaboratorioForm(request.POST, instance=selected_object)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Objeto atualizado com sucesso.')
+                return redirect('admin_lab')
+
+        elif action == 'delete':
+            selected_object = ObjetoLaboratorio.objects.filter(pk=object_id).first()
+            if selected_object is None:
+                messages.warning(request, 'Objeto nao encontrado.')
+            else:
+                selected_object.delete()
+                messages.success(request, 'Objeto removido com sucesso.')
+            return redirect('admin_lab')
+
+    return render(request, 'admin_config/manage_lab_objects.html', {
+        'action': action,
+        'lab_objects': ObjetoLaboratorio.objects.all().order_by('nome'),
+        'form': form,
+        'selected_object': selected_object,
     })
